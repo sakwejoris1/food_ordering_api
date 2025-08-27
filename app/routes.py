@@ -134,3 +134,8 @@ def get_orders():
         output.append(order_data)
 
     return jsonify(output)
+
+@main.route("/")
+def index():
+    fruits = Fruit.query.all()  
+    return render_template("index.html", fruits=fruits)
