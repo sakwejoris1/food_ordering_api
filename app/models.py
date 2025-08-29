@@ -3,17 +3,20 @@ from datetime import datetime
 
 
 class Fruit(db.Model):
+    __tablename__ = "fruits"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float, nullable=False)
+    description = db.Column(db.String(255))
 
 
 class CartItem(db.Model):
+    __tablename__ = "cart_items"
     id = db.Column(db.Integer, primary_key=True)
-    fruit_id = db.Column(db.Integer, db.ForeignKey('fruit.id'), nullable=False)
-    quantity = db.Column(db.Integer, nullable=False)
+    fruit_id = db.Column(db.Integer, db.ForeignKey("fruits.id"), nullable=False)
 
-    fruit = db.relationship('fruit')
+    fruit = db.relationship("Fruit", backref="cart_items")
+
 
 
 class Order(db.Model):
